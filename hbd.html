@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>happybirthday!</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: black;
+      overflow-x: hidden;
+      overflow-y: auto;
+      color: white;
+      font-family: Arial, sans-serif;
+      padding: 40px 20px;
+    }
+
+    .title {
+      text-align: center;
+      font-size: 2.5em;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+      margin-top: 40px;
+    }
+
+    .message {
+      max-width: 800px;
+      margin: 40px auto;
+      font-size: 1.2em;
+      line-height: 1.6;
+      white-space: pre-wrap;
+      opacity: 0;
+      transition: opacity 2s ease-in-out;
+    }
+
+    .sparkle, .confetti {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .sparkle {
+      width: 4px;
+      height: 4px;
+      background: white;
+      animation: sparkleMove 3s forwards;
+    }
+
+    @keyframes sparkleMove {
+      0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--x), var(--y)) scale(0.5);
+        opacity: 0;
+      }
+    }
+
+    @keyframes confettiBurst {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translate(var(--dx), var(--dy)) rotate(720deg);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1 class="title" id="title">happy birthday</h1>
+  <div class="message" id="message">karim,
+i begin this message with no idea of where the end lies,
+as i could write endlessly about the twinkle in your eyes,
+not to forget about your glowing smile that lights up the skies.
+now i’ll try to not be cringey,
+but when it comes to you i don’t like to be stingy,
+for in your world you give me a place,
+where every day i am privileged to see your gorgeous face,
+and share with you more than just memories:
+calmness and warmth, strength and growth,
+laughs and baths, tours and snores,
+not to forget the cries and temporary byes,
+as i hold you in my arms embracing your charm.
+
+a quiet night where the world was deep in sleep,
+our disparate paths took the chance to meet,
+it was all so sudden, nothing I could’ve guessed,
+yet somehow your presence felt like fate at rest.
+our bond bloomed fast, efficiently as you might say
+each call extended, each feeling grew by the day.
+nights stretched on until sleep found me in your arms,
+safe from the world, wrapped in your warmth and calms.
+our storytimes shifted from words to real,
+now we write chapters that touch and feel.
+imprinted deep in the beat of my chest you are,
+extending further when i hear you sing and play your guitar.
+my hands they ache for the fit of yours,
+my lips remember what your touch restores.
+I didn’t plan for things to turn this way,
+but maybe that’s what makes it all okay.
+spontaneous moments are what I live for,
+and you were the sweetest surprise that ever came thru the door
+no warning, no signs
+just a blessing, making the best of times.
+
+my beloved karim, i pray from the bottom of my heart that Allah grants you an everlasting abundance of good in this world and the akhirah. may Allah bless you and bless your parents for birthing such an amazing man inside out. may Allah accept all the silent prayers your heart makes and grant you success and contentment in all aspects of your life. may Allah keep away all forms of negativity and evil eye from your path and keep you safe from all harm. ameen ya rab
+
+now i tie this off i promise x
+people may come across karims in life but you are my karim.
+you truly are a gem 
+بحبك كريم
+happy birthday <33
+  </div>
+
+  <script>
+    function createSparkle(x, y) {
+      const sparkle = document.createElement('div');
+      sparkle.classList.add('sparkle');
+      const angle = Math.random() * 2 * Math.PI;
+      const distance = 200 + Math.random() * 150;
+      const dx = Math.cos(angle) * distance + 'px';
+      const dy = Math.sin(angle) * distance + 'px';
+      sparkle.style.left = x + 'px';
+      sparkle.style.top = y + 'px';
+      sparkle.style.setProperty('--x', dx);
+      sparkle.style.setProperty('--y', dy);
+      document.body.appendChild(sparkle);
+      setTimeout(() => sparkle.remove(), 3000);
+    }
+
+    function startSparkles(durationInSeconds) {
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      const interval = 200;
+      let count = 0;
+      const maxCount = (durationInSeconds * 1000) / interval;
+      const sparkleInterval = setInterval(() => {
+        for (let i = 0; i < 15; i++) {
+          createSparkle(centerX, centerY);
+        }
+        count++;
+        if (count >= maxCount) {
+          clearInterval(sparkleInterval);
+          document.getElementById('title').style.opacity = 1;
+          document.getElementById('message').style.opacity = 1;
+        }
+      }, interval);
+    }
+
+    function createConfetti(x, y) {
+      const colors = ['#ff4d4d', '#ffd633', '#66ff66', '#66ccff', '#cc66ff', '#ff66b3'];
+      for (let i = 0; i < 10; i++) {
+        const confetti = document.createElement('div');
+        confetti.classList.add('confetti');
+        confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        confetti.style.width = `${4 + Math.random() * 4}px`;
+        confetti.style.height = `${4 + Math.random() * 4}px`;
+        confetti.style.left = `${x}px`;
+        confetti.style.top = `${y}px`;
+        const dx = (Math.random() - 0.5) * 200 + 'px';
+        const dy = (Math.random() - 0.5) * 200 + 'px';
+        confetti.style.setProperty('--dx', dx);
+        confetti.style.setProperty('--dy', dy);
+        confetti.style.animation = 'confettiBurst 1s ease-out forwards';
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 1000);
+      }
+    }
+
+    window.onload = function () {
+      startSparkles(3);
+    };
+
+    document.addEventListener('mousemove', function (e) {
+      createConfetti(e.clientX, e.clientY);
+    });
+  </script>
+
+</body>
+</html>
